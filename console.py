@@ -3,7 +3,13 @@
 import json
 import cmd
 from models.user import User
-from models.basemodel import BaseModel
+from models.base_model import BaseModel
+from models.place import Place
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
+
 
 class HBNBCommand(cmd.Cmd):
     """A simple CRUD command for user data management"""
@@ -11,6 +17,11 @@ class HBNBCommand(cmd.Cmd):
     CLASSES = {
             'BaseModel' : BaseModel,
             'User' : User,
+            'Place': Place,
+            'State': State,
+            'City': City,
+            'Amenity': Amenity,
+            'Review': Review,
             }
 
     prompt = "(hbnb) "
@@ -26,7 +37,7 @@ class HBNBCommand(cmd.Cmd):
         if not args:
             print("class name missing")
             return
-        class_name = args(0)
+        class_name = args[0]
         if class_name not in self.CLASSES:
              print("** class doesn't exist **")
              return
@@ -37,15 +48,15 @@ class HBNBCommand(cmd.Cmd):
         except Exception as E:
             print(E)
 
-    def do_destroy(self, line)
+    def do_destroy(self, line):
         """this deletes an instance based on the class name and id"""
-         args = line.split()
-         if not args:
+        args = line.split()
+        if not args:
              print("** class name missing **")
              return
 
-         class_name = args[0]
-         if class_name not in self.CLASSES:
+        class_name = args[0]
+        if class_name not in self.CLASSES:
              print("** class doesn't exist **")
              return
 
@@ -53,8 +64,8 @@ class HBNBCommand(cmd.Cmd):
              print("** instance id missing **")
              return
 
-          object_id = args[1]
-          key = "{}.{}".format(class_name, object_id)
+        object_id = args[1]
+        key = "{}.{}".format(class_name, object_id)
         if key in self.users:
               del self.users[key]
               self.save_to_json() # Save changes to JSON file
@@ -64,8 +75,8 @@ class HBNBCommand(cmd.Cmd):
     def do_show(self, line):
         """Prints the string representation of an instance
         based on the class name and id."""
-         args = line.split()
-         if not args:
+        args = line.split()
+        if not args:
             print("** class name missing **")
             return
 
@@ -74,7 +85,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
 
-         if len(args) < 2:
+        if len(args) < 2:
             print("** instance id missing **")
             return
 
