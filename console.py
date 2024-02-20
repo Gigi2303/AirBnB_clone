@@ -160,5 +160,23 @@ class HBNBCommand(cmd.Cmd):
         """this handles EOF (Ctrl+D) to exit the program."""
         return True
 
+    def do_count(self, line):
+        """Count the number of instances of a class"""
+        args = line.split()
+        if not args:
+            print("** class name missing **")
+            return
+
+        class_name = args[0]
+        if class_name not in self.CLASSES:
+            print("** class doesn't exist **")
+            return
+
+        # Count instances of the specified class
+        count = sum(1 for obj in models.storage.all().values()
+                        if obj.__class__.__name__ == class_name)
+        print(count)
+
+
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
