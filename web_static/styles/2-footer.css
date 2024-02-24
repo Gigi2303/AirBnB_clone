@@ -1,13 +1,10 @@
-footer {
+footer{
 	background-color: #00FF00;
 	height: 60px;
 	width: 100%;
-	position: fixed;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	text-align: center;
-	display: flex;
+	position: absolute;
+ 	justify-content: center;
 	align-items: center;
-	justify-content: center;
+	bottom: 0;
+	display:flex;
 }
